@@ -1,3 +1,13 @@
+<?php
+require_once("../config/config.php");
+$sql = "SELECT * FROM products";
+
+$result = $conn->query($sql);
+
+$products = $result->fetch_all(MYSQLI_ASSOC);
+$uuid = 0;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,27 +76,25 @@
                                 <th scope="col">Tên sản phẩm</th>
                                 <th scope="col">Mô tả</th>
                                 <th scope="col">Giá tiền</th>
+                                <th scope="col">Hình ảnh</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            <?php foreach ($products as $product) : $uuid++ ?>
+                                <tr>
+                                    <th scope="row"><?php echo $uuid ?></th>
+                                    <td><?php echo $product["name"] ?></td>
+                                    <td><?php echo $product["description"] ?></td>
+                                    <td><?php echo number_format($product["price"], 0, "", ".") ?></td>
+                                    <td class="div-image-table"><img class="image-table" src="<?php echo $product["image"] ?>" alt=""></td>
+                                    <td>
+                                        <a href="./update.php?id=<?php echo $product["id"] ?>" class="socialColor"><i class="fas fa-pen"></i></a>
+                                        <a href="./detail.php" class="socialColor mr-2 ml-2"><i class="fas fa-eye"></i></a>
+                                        <a href="./delete.php" class="socialColor"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>

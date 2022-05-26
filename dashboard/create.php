@@ -1,3 +1,33 @@
+<?php
+require_once '../config/config.php';
+session_start();
+
+$target_dir    = "../asset/image/";
+if (isset($_POST['checkSubmitForm'])) {
+    var_dump($_FILES);
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+    if (isset($_FILES["fileupload"])) {
+        $target_file   = $target_dir . basename($_FILES["fileupload"]["name"]);
+    }
+    if (move_uploaded_file($_FILES["fileupload"]["tmp_name"], $target_file)) {
+        var_dump($target_file);
+    };
+    $sqlInsert = "INSERT INTO `btl_sneaker`.`products` (`name`, `description`, `price`,`image`) VALUES ('$name', '
+    $description', '$price','$target_file');";
+    $result = $conn->query($sqlInsert);
+
+    if ($result) {
+        return header("Location: ./index.php");
+    } else {
+        echo $result;
+    }
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,27 +80,30 @@
     </header>
     <div class="container mt-4">
         <h1 class="text-center">Thêm sản phẩm mới</h1>
-        <form action="" class="pl-5 pr-5" method="POST">
+        <form action="" class="pl-5 pr-5" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Tên sản phẩm</label>
-                <input type="text" class="form-control" id="recipient-name">
+                <input type="text" class="form-control" name="name" id="recipient-name">
             </div>
             <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Mô tả</label>
-                <input type="text" class="form-control" id="recipient-name">
+                <input type="text" class="form-control" name="description" id="recipient-name">
             </div>
             <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Giá tiền</label>
-                <input type="text" class="form-control" id="recipient-name">
+                <input type="number" class="form-control" name="price" id="recipient-name">
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    <span class="input-group-text" id="inputGroupFileAddon01">Hình ảnh</span>
                 </div>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    <input type="file" class="custom-file-input" name="fileupload" id="fileupload" aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01"></label>
                 </div>
+            </div>
+            <div class="d-none">
+                <input type="text" name="checkSubmitForm" value=true readonly>
             </div>
 
             <div class="text-center">
