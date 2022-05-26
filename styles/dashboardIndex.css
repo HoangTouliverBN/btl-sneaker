@@ -1,0 +1,82 @@
+font-face {
+  font-family: Myrio;
+  src: "../asset/fonts/Myriad Pro Regular.ttf";
+}
+body {
+  font-family: Myrio;
+}
+body > a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.divider-red {
+  background-color: #fe0000;
+  height: 8px;
+  border-radius: 18px;
+}
+.divider-gray {
+  background-color: rgba(185, 179, 179, 0.5);
+  height: 1px;
+  border-radius: 18px;
+}
+.container-custome {
+  margin: 0px 50px;
+}
+.header-title {
+  font-style: italic;
+}
+.input-search {
+  padding: 0px 10px;
+  border-radius: 18px;
+  font-size: 20px;
+}
+.btn-submit-search {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #fe0000;
+  display: inline-block;
+  font-size: 20px;
+  border: 3px solid #cb0000;
+  vertical-align: baseline;
+  position: relative;
+  z-index: 0;
+  border-radius: 1.08333333em;
+  transition: transform 0.15s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  padding: 0px 10px;
+  -ms-user-select: none;
+  user-select: none;
+}
+.btn-submit-search:hover {
+  text-decoration: none;
+  transform: scale(1.05);
+  color: #ffffff;
+}
+.btn-submit-search:active {
+  transform: scale(0.85);
+}
+ul > li {
+  list-style: none;
+}
+.socialIcon {
+  margin: 0px 3px;
+  padding: 0px 3px;
+}
+.socialColor {
+  color: #999999;
+}
+.socialColor:hover {
+  color: #fe0000;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.navbar-custome {
+  color: #fe0000 !important;
+  font-weight: 600;
+  font-size: 18px;
+}
+.background-table-custome > tr > th {
+  background-color: #fe0000 !important;
+  border: 3px solid #cb0000 !important;
+}
