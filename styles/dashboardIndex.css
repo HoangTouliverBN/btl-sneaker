@@ -24,7 +24,12 @@ body > a:hover {
 }
 .header-title {
   font-style: italic;
+  color: black !important;
 }
+.header-title:hover {
+  text-decoration: none !important;
+}
+
 .input-search {
   padding: 0px 10px;
   border-radius: 18px;
@@ -54,6 +59,31 @@ body > a:hover {
   color: #ffffff;
 }
 .btn-submit-search:active {
+  transform: scale(0.85);
+}
+.btn-submit-back {
+  text-decoration: none;
+  color: #fe0000;
+  display: inline-block;
+  font-size: 20px;
+  border: 2px solid #cb0000;
+  vertical-align: baseline;
+  position: relative;
+  z-index: 0;
+  border-radius: 1.08333333em;
+  transition: transform 0.15s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  padding: 0px 10px;
+  -ms-user-select: none;
+  user-select: none;
+}
+.btn-submit-back:hover {
+  text-decoration: none;
+  transform: scale(1.05);
+  color: #fe0000;
+}
+.btn-submit-back:active {
   transform: scale(0.85);
 }
 ul > li {
@@ -91,4 +121,7 @@ ul > li {
 .image-section1 {
   border-radius: 24px;
   border: 1px solid;
+}
+.footer {
+  background-color: #fe0000;
 }

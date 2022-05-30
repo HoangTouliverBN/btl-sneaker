@@ -38,8 +38,8 @@
                         </a>
                     </li>
                 </ul>
+                <h1 class="text-black header-title"><a href="#" class="header-title">2022 Sneaker</a></h1>
 
-                <h1 class="text-black header-title">2022 Sneaker</h1>
             </div>
             <form action="" method="POST">
                 <input class="input-search" type="text" placeholder="Nhập tên sản phẩm">
@@ -53,7 +53,7 @@
         <section class="container">
             <div class="row align-items-center">
                 <div class="col-5">
-                    <img class="image-section1" src="https://cdn.vox-cdn.com/thumbor/NQCTg912dkuZZandsN1gG0YbA9w=/0x0:2000x1196/920x613/filters:focal(840x438:1160x758):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70267766/a16z_rtfkt_sneakers.0.jpg" alt="">
+                    <img class="image-section1" width="400" height="400" src="https://cdn.vox-cdn.com/thumbor/NQCTg912dkuZZandsN1gG0YbA9w=/0x0:2000x1196/920x613/filters:focal(840x438:1160x758):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70267766/a16z_rtfkt_sneakers.0.jpg" alt="">
                 </div>
                 <div class="col-7">
                     <h2>Đây là giày</h2>

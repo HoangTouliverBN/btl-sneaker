@@ -25,6 +25,10 @@ body > a:hover {
 
 .header-title {
   font-style: italic;
+  color: black !important;
+}
+.header-title:hover {
+  text-decoration: none !important;
 }
 .input-search {
   padding: 0px 10px;
