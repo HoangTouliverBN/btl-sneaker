@@ -9,17 +9,17 @@ if (isset($_POST['checkSubmitForm'])) {
     $price = $_POST['price'];
     if (isset($_FILES["fileupload"])) {
         $file = basename($_FILES["fileupload"]["name"]);
-        $folder = md5($file);
-        $move_file = mkdir($target_dir . $folder) . $file;
-        $target_file = $folder . $file;
+        $folder = md5($file . $name . $description . $price);
+        $target_file = $folder . "/" . $file;
+        if (mkdir($target_dir . $folder, 0777)) {
+            $move_file =   $target_dir . $target_file;
+        }
     }
     if (move_uploaded_file($_FILES["fileupload"]["tmp_name"], $move_file)) {
     };
     $sqlInsert = "INSERT INTO `btl_sneaker`.`products` (`name`, `description`, `price`,`image`) VALUES ('$name', '
     $description', '$price','$target_file');";
     $result = $conn->query($sqlInsert);
-    var_dump($result);
-    die;
 
     if ($result) {
         return header("Location: ./index.php");

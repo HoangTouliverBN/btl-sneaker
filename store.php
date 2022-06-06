@@ -78,7 +78,7 @@ $j = 0;
                     <h2><?php echo $productNewItem["name"] ?></h2>
                     <p><?php echo $productNewItem["description"] ?></p>
                     <p>Giá: <?php echo number_format($productNewItem["price"], 0, "", ".") ?></p>
-                    <button class="btn-submit-search" data-toggle="modal" data-target="#exampleModal">Mua hàng</button>
+                    <button class="btn-submit-search show-modal" data-toggle="modal" onclick="pickImage(value,`<?php echo $productNewItem['name'] ?>`,`Giá: <?php echo number_format($productNewItem['price'], 0, '', '.') ?>`)" data-target="#exampleModal" value="./asset/image/<?php echo $productNewItem["image"] ?>">Mua hàng</button>
                 </div>
             </div>
         </section>
@@ -97,7 +97,7 @@ $j = 0;
                             <h5 class="card-title"><a class="text-decoration-none text-dark" href=""><?php echo $product["name"] ?></a></h5>
                             <p class="card-text"><?php echo $product["description"] ?></p>
                             <p class="card-text">Giá: <?php echo $product["price"] ?></p>
-                            <button class="btn-submit-search" data-toggle="modal" data-target="#exampleModal">Mua hàng</button>
+                            <button class="btn-submit-search show-modal" data-toggle="modal" onclick="pickImage(value,`<?php echo $product['name'] ?>`,`Giá: <?php echo number_format($product['price'], 0, '', '.') ?>`)" value="./asset/image/<?php echo $product["image"] ?>" data-target="#exampleModal">Mua hàng</button>
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@ $j = 0;
                             <h5 class="card-title"><a class="text-dark text-decoration-none text-black" href=""><?php echo $product["name"] ?></a></h5>
                             <p class="card-text"><?php echo $product["description"] ?></p>
                             <p class="card-text">Giá: <?php echo $product["price"] ?></p>
-                            <button class="btn-submit-search" data-toggle="modal" data-target="#exampleModal">Mua hàng</button>
+                            <button class="btn-submit-search show-modal" onclick="pickImage(value,`<?php echo $product['name'] ?>`,`Giá: <?php echo number_format($product['price'], 0, '', '.') ?>`)" data-toggle="modal" value="./asset/image/<?php echo $product["image"] ?>" data-target="#exampleModal">Mua hàng</button>
                         </div>
                     </div>
                 </div>
@@ -147,13 +147,13 @@ $j = 0;
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thông tin mua hàng</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Thông tin mua hàng <br> <span id="name"></span> <br> <span id="price"></span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="POST" enctype="multipart/form-data" action="./submitOrder.php">
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Họ và tên</label>
                             <input type="text" class="form-control" id="recipient-name">
@@ -181,14 +181,16 @@ $j = 0;
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Ghi chú</label>
                             <textarea class="form-control" aria-label="With textarea" rows="6"></textarea>
-
                         </div>
-                        <img src="https://cdn.vox-cdn.com/thumbor/NQCTg912dkuZZandsN1gG0YbA9w=/0x0:2000x1196/920x613/filters:focal(840x438:1160x758):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70267766/a16z_rtfkt_sneakers.0.jpg" class="card-img-top" alt="...">
+                        <div class="d-none">
+                            <input type="text" name="checkSubmitForm" value=true readonly>
+                        </div>
+                        <img id="imageModal" height="350" src="" class="card-img-top" alt="...">
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary hide-modal" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary">Đặt hàng</button>
+                    <button class="btn btn-primary">Đặt hàng</button>
                 </div>
             </div>
         </div>
@@ -198,6 +200,11 @@ $j = 0;
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
     <script>
+        function pickImage(value, value2, value3) {
+            $("#name").text(value2);
+            $("#price").text(value3);
+            $("#imageModal").attr("src", value);
+        }
         $(function() {
             $("#submit-form").submit(function() {
                 e.preventDefault();
