@@ -1,3 +1,22 @@
+<?php
+require_once("./config/config.php");
+$sql = "SELECT * FROM products order by id DESC";
+
+$sqlNewItem = "SELECT * FROM btl_sneaker.products order by id DESC;";
+$sqlNewItems = "SELECT * FROM btl_sneaker.products order by id DESC limit 4;";
+$result = $conn->query($sql);
+$result2 = $conn->query($sqlNewItem);
+$result3 = $conn->query($sqlNewItems);
+
+$productNewItem = $result2->fetch_assoc();
+$productNewItems = $result3->fetch_all(MYSQLI_ASSOC);
+$products = $result->fetch_all(MYSQLI_ASSOC);
+unset($productNewItems[0]);
+for ($i = 0; $i < 4; $i++) {
+    unset($products[$i]);
+}
+$j = 0;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,11 +72,12 @@
         <section class="container">
             <div class="row align-items-center">
                 <div class="col-5">
-                    <img class="image-section1" width="400" height="400" src="https://cdn.vox-cdn.com/thumbor/NQCTg912dkuZZandsN1gG0YbA9w=/0x0:2000x1196/920x613/filters:focal(840x438:1160x758):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70267766/a16z_rtfkt_sneakers.0.jpg" alt="">
+                    <img class="image-section1" width="400" height="400" src="./asset/image/<?php echo $productNewItem["image"] ?>" alt="">
                 </div>
                 <div class="col-7">
-                    <h2>Đây là giày</h2>
-                    <p>This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <h2><?php echo $productNewItem["name"] ?></h2>
+                    <p><?php echo $productNewItem["description"] ?></p>
+                    <p>Giá: <?php echo number_format($productNewItem["price"], 0, "", ".") ?></p>
                     <button class="btn-submit-search" data-toggle="modal" data-target="#exampleModal">Mua hàng</button>
                 </div>
             </div>
@@ -67,35 +87,38 @@
 
     <div class="container-custome mt-4">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <?php for ($i = 0; $i < 3; $i++) { ?>
+            <?php foreach ($productNewItems as $product) : ?>
                 <div class="col">
                     <div class="card">
                         <a href="">
-                            <img src="https://cdn.vox-cdn.com/thumbor/NQCTg912dkuZZandsN1gG0YbA9w=/0x0:2000x1196/920x613/filters:focal(840x438:1160x758):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70267766/a16z_rtfkt_sneakers.0.jpg" class="card-img-top" alt="...">
+                            <img height="280" src="./asset/image/<?php echo $product["image"] ?>" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
-                            <h5 class="card-title"><a class="text-decoration-none text-dark" href="">Card title</a></h5>
-                            <p class="card-text"><a class="text-decoration-none text-dark" href="">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</a></p>
+                            <h5 class="card-title"><a class="text-decoration-none text-dark" href=""><?php echo $product["name"] ?></a></h5>
+                            <p class="card-text"><?php echo $product["description"] ?></p>
+                            <p class="card-text">Giá: <?php echo $product["price"] ?></p>
                             <button class="btn-submit-search" data-toggle="modal" data-target="#exampleModal">Mua hàng</button>
                         </div>
                     </div>
                 </div>
-            <?php } ?>
+            <?php endforeach ?>
         </div>
         <div class="divider-gray mt-4"></div>
     </div>
 
     <div class="container-custome mt-4">
         <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2">
-            <?php for ($i = 0; $i < 7; $i++) { ?>
-                <div class="col <?php echo $i > 12 - 4 && $i < 12 ?  "" : "mb-4"  ?>">
+            <?php foreach ($products as $product) {
+                $j++  ?>
+                <div class="col <?php echo $j > 12 - 4 && $j < 12 ?  "" : "mb-4"  ?>">
                     <div class="card" style="width: 18rem;">
                         <a href="">
-                            <img src="https://cdn.vox-cdn.com/thumbor/NQCTg912dkuZZandsN1gG0YbA9w=/0x0:2000x1196/920x613/filters:focal(840x438:1160x758):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70267766/a16z_rtfkt_sneakers.0.jpg" class="card-img-top" alt="...">
+                            <img src="./asset/image/<?php echo $product["image"] ?>" height="200" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
-                            <h5 class="card-title"><a class="text-dark text-decoration-none text-black" href="">Đây là giày</a></h5>
-                            <p class="card-text"><a class="text-decoration-none text-dark" href="">Some quick example text to build on the card title and make up the bulk of the card's content.</a></p>
+                            <h5 class="card-title"><a class="text-dark text-decoration-none text-black" href=""><?php echo $product["name"] ?></a></h5>
+                            <p class="card-text"><?php echo $product["description"] ?></p>
+                            <p class="card-text">Giá: <?php echo $product["price"] ?></p>
                             <button class="btn-submit-search" data-toggle="modal" data-target="#exampleModal">Mua hàng</button>
                         </div>
                     </div>
@@ -109,7 +132,7 @@
         <div class="container-custome mt-4">
             <div class="row p-2">
                 <div class="col-8">
-                    <h1 class="text-white header-title">2022 Sneaker</h1>
+                    <h1 class="header-title text-white">2022 Sneaker</h1>
                     <p class="text-white">Địa chỉ: Đ. Hồ Tùng Mậu, Mai Dịch, Cầu Giấy, Hà Nội, Việt Nam <br> Số điện thoại: 039xxxxxxx <br>Email: contact@gmail.com</p>
                 </div>
                 <div class="col-4">

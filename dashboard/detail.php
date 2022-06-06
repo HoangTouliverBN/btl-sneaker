@@ -64,7 +64,7 @@ $uuid = 0;
             <section class="container">
                 <div class="row align-items-center">
                     <div class="col-5">
-                        <img class="image-section1" width="400" height="400" src="<?php echo  $product["image"] ?>" alt="">
+                        <img class="image-section1" width="400" height="400" src="../asset/image/<?php echo $product["image"] ?>" alt="">
                     </div>
                     <div class="col-7">
                         <h2><?php echo  $product["name"] ?></h2>
@@ -84,7 +84,7 @@ $uuid = 0;
         <div class="container-custome mt-4">
             <div class="row p-2">
                 <div class="col-8">
-                    <h1 class="text-white header-title">2022 Sneaker</h1>
+                    <h1 class=" header-title text-white">2022 Sneaker</h1>
                     <p class="text-white">Địa chỉ: Đ. Hồ Tùng Mậu, Mai Dịch, Cầu Giấy, Hà Nội, Việt Nam <br> Số điện thoại: 039xxxxxxx <br>Email: contact@gmail.com</p>
                 </div>
                 <div class="col-4">

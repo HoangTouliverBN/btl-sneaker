@@ -87,7 +87,7 @@ $uuid = 0;
                                     <td><?php echo $product["name"] ?></td>
                                     <td><?php echo $product["description"] ?></td>
                                     <td><?php echo number_format($product["price"], 0, "", ".") ?></td>
-                                    <td class="div-image-table"><img class="image-table" src="<?php echo $product["image"] ?>" alt=""></td>
+                                    <td class="div-image-table"><img class="image-table" src="../asset/image/<?php echo $product["image"] ?>" alt=""></td>
                                     <td>
                                         <a href="./update.php?id=<?php echo $product["id"] ?>" class="socialColor"><i class="fas fa-pen"></i></a>
                                         <a href="./detail.php?id=<?php echo $product["id"] ?>" class="socialColor mr-2 ml-2"><i class="fas fa-eye"></i></a>
@@ -144,7 +144,7 @@ $uuid = 0;
         <div class="container-custome mt-4">
             <div class="row p-2">
                 <div class="col-8">
-                    <h1 class="text-white header-title">2022 Sneaker</h1>
+                    <h1 class="header-title text-white">2022 Sneaker</h1>
                     <p class="text-white">Địa chỉ: Đ. Hồ Tùng Mậu, Mai Dịch, Cầu Giấy, Hà Nội, Việt Nam <br> Số điện thoại: 039xxxxxxx <br>Email: contact@gmail.com</p>
                 </div>
                 <div class="col-4">

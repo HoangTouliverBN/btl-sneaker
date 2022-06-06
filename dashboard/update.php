@@ -14,14 +14,14 @@ if (isset($_POST['checkSubmitForm'])) {
     $description = $_POST['description'];
     $price = $_POST['price'];
     if (isset($_FILES["fileupload"]) && $_FILES["fileupload"]['error'] == 0) {
+        $file = basename($_FILES["fileupload"]["name"]);
         $target_file   = $target_dir . basename($_FILES["fileupload"]["name"]);
         move_uploaded_file($_FILES["fileupload"]["tmp_name"], $target_file);
         var_dump($target_file);
-        die;
     } else {
         $target_file = $product["image"];
     }
-    $sqlUpdate = "UPDATE btl_sneaker.products SET `name` = '$name' , `description` = '$description', `price` = '$price',`image` = '$target_file' WHERE id = $id;";
+    $sqlUpdate = "UPDATE btl_sneaker.products SET `name` = '$name' , `description` = '$description', `price` = '$price',`image` = '$file' WHERE id = $id;";
     var_dump($sqlUpdate);
     $result = $conn->query($sqlUpdate);
 
@@ -110,7 +110,7 @@ if (isset($_POST['checkSubmitForm'])) {
                 </div>
             </div>
             <div class="text-center mt-3 mb-3">
-                <img width="30%" height="180" src="<?php echo $product["image"] ?>" class="image-section1" alt="...">
+                <img width="30%" height="180" src="../asset/image/<?php echo $product["image"] ?>" class="image-section1" alt="...">
             </div>
             <div class="d-none">
                 <input type="text" name="checkSubmitForm" value=true readonly>
@@ -126,7 +126,7 @@ if (isset($_POST['checkSubmitForm'])) {
         <div class="container-custome mt-4">
             <div class="row p-2">
                 <div class="col-8">
-                    <h1 class="text-white header-title">2022 Sneaker</h1>
+                    <h1 class="header-title text-white">2022 Sneaker</h1>
                     <p class="text-white">Địa chỉ: Đ. Hồ Tùng Mậu, Mai Dịch, Cầu Giấy, Hà Nội, Việt Nam <br> Số điện thoại: 039xxxxxxx <br>Email: contact@gmail.com</p>
                 </div>
                 <div class="col-4">

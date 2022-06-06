@@ -4,19 +4,22 @@ session_start();
 
 $target_dir    = "../asset/image/";
 if (isset($_POST['checkSubmitForm'])) {
-    var_dump($_FILES);
     $name = $_POST['name'];
     $description = $_POST['description'];
     $price = $_POST['price'];
     if (isset($_FILES["fileupload"])) {
-        $target_file   = $target_dir . basename($_FILES["fileupload"]["name"]);
+        $file = basename($_FILES["fileupload"]["name"]);
+        $folder = md5($file);
+        $move_file = mkdir($target_dir . $folder) . $file;
+        $target_file = $folder . $file;
     }
-    if (move_uploaded_file($_FILES["fileupload"]["tmp_name"], $target_file)) {
-        var_dump($target_file);
+    if (move_uploaded_file($_FILES["fileupload"]["tmp_name"], $move_file)) {
     };
     $sqlInsert = "INSERT INTO `btl_sneaker`.`products` (`name`, `description`, `price`,`image`) VALUES ('$name', '
     $description', '$price','$target_file');";
     $result = $conn->query($sqlInsert);
+    var_dump($result);
+    die;
 
     if ($result) {
         return header("Location: ./index.php");
@@ -116,7 +119,7 @@ if (isset($_POST['checkSubmitForm'])) {
         <div class="container-custome mt-4">
             <div class="row p-2">
                 <div class="col-8">
-                    <h1 class="text-white header-title">2022 Sneaker</h1>
+                    <h1 class=" header-title text-white">2022 Sneaker</h1>
                     <p class="text-white">Địa chỉ: Đ. Hồ Tùng Mậu, Mai Dịch, Cầu Giấy, Hà Nội, Việt Nam <br> Số điện thoại: 039xxxxxxx <br>Email: contact@gmail.com</p>
                 </div>
                 <div class="col-4">
