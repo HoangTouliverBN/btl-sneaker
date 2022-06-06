@@ -153,7 +153,7 @@ $j = 0;
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" enctype="multipart/form-data" action="./submitOrder.php">
+                    <form method="POST" enctype="multipart/form-data" action="./submitOrder.php" class="form-submit">
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Họ và tên</label>
                             <input type="text" class="form-control" id="recipient-name">
@@ -190,7 +190,7 @@ $j = 0;
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary hide-modal" data-dismiss="modal">Đóng</button>
-                    <button class="btn btn-primary">Đặt hàng</button>
+                    <button class="btn btn-primary" type="submit" id="submit">Đặt hàng</button>
                 </div>
             </div>
         </div>
@@ -206,8 +206,8 @@ $j = 0;
             $("#imageModal").attr("src", value);
         }
         $(function() {
-            $("#submit-form").submit(function() {
-                e.preventDefault();
+            $("#submit").click(function() {
+                $("form").submit()
             })
         })
     </script>
