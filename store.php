@@ -77,8 +77,8 @@ $j = 0;
                 <div class="col-7">
                     <h2><?php echo $productNewItem["name"] ?></h2>
                     <p><?php echo $productNewItem["description"] ?></p>
-                    <p>Giá: <?php echo number_format($productNewItem["price"], 0, "", ".") ?></p>
-                    <button class="btn-submit-search show-modal" data-toggle="modal" onclick="pickImage(value,`<?php echo $productNewItem['name'] ?>`,`Giá: <?php echo number_format($productNewItem['price'], 0, '', '.') ?>`)" data-target="#exampleModal" value="./asset/image/<?php echo $productNewItem["image"] ?>">Mua hàng</button>
+                    <p>Giá: <?php echo number_format($productNewItem["price"], 0, "", ",") ?></p>
+                    <button class="btn-submit-search show-modal" data-toggle="modal" onclick="pickImage(value,`<?php echo $productNewItem['name'] ?>`,`<?php echo $productNewItem['price'] ?>`)" data-target="#exampleModal" value="./asset/image/<?php echo $productNewItem["image"] ?>">Mua hàng</button>
                 </div>
             </div>
         </section>
@@ -96,8 +96,8 @@ $j = 0;
                         <div class="card-body">
                             <h5 class="card-title"><a class="text-decoration-none text-dark" href=""><?php echo $product["name"] ?></a></h5>
                             <p class="card-text"><?php echo $product["description"] ?></p>
-                            <p class="card-text">Giá: <?php echo $product["price"] ?></p>
-                            <button class="btn-submit-search show-modal" data-toggle="modal" onclick="pickImage(value,`<?php echo $product['name'] ?>`,`Giá: <?php echo number_format($product['price'], 0, '', '.') ?>`)" value="./asset/image/<?php echo $product["image"] ?>" data-target="#exampleModal">Mua hàng</button>
+                            <p class="card-text">Giá: <?php echo  number_format($product["price"], 0, "", ",")  ?></p>
+                            <button class="btn-submit-search show-modal" data-toggle="modal" onclick="pickImage(value,`<?php echo $product['name'] ?>`,` <?php echo $product['price'] ?>`)" value="./asset/image/<?php echo $product["image"] ?>" data-target="#exampleModal">Mua hàng</button>
                         </div>
                     </div>
                 </div>
@@ -118,8 +118,8 @@ $j = 0;
                         <div class="card-body">
                             <h5 class="card-title"><a class="text-dark text-decoration-none text-black" href=""><?php echo $product["name"] ?></a></h5>
                             <p class="card-text"><?php echo $product["description"] ?></p>
-                            <p class="card-text">Giá: <?php echo $product["price"] ?></p>
-                            <button class="btn-submit-search show-modal" onclick="pickImage(value,`<?php echo $product['name'] ?>`,`Giá: <?php echo number_format($product['price'], 0, '', '.') ?>`)" data-toggle="modal" value="./asset/image/<?php echo $product["image"] ?>" data-target="#exampleModal">Mua hàng</button>
+                            <p class="card-text">Giá: <?php echo number_format($product["price"], 0, "", ",") ?></p>
+                            <button class="btn-submit-search show-modal" onclick="pickImage(value,`<?php echo $product['name'] ?>`,`<?php echo $product['price'] ?>`)" data-toggle="modal" value="./asset/image/<?php echo $product["image"] ?>" data-target="#exampleModal">Mua hàng</button>
                         </div>
                     </div>
                 </div>
@@ -155,32 +155,41 @@ $j = 0;
                 <div class="modal-body">
                     <form method="POST" enctype="multipart/form-data" action="./submitOrder.php" class="form-submit">
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Họ và tên</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <label for="recipient-name" class="col-form-label">Họ và tên<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="nameInput" name="name">
+                            <label id="errorName" class="text-danger m-0"></label>
                         </div>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Số điện thoại</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <label for="recipient-name" class="col-form-label">Số điện thoại<span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="phoneNumber" name="phoneNumber">
+                            <label id="errorPhoneNumber" class="text-danger m-0"></label>
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Email</label>
-                            <input type="email" class="form-control" id="recipient-name">
+                            <input type="email" class="form-control" id="email" name="email">
                         </div>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Địa chỉ</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <label for="recipient-name" class="col-form-label">Địa chỉ<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="address" name="address">
+                            <label id="errorAddress" class="text-danger m-0"></label>
                         </div>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Số lượng</label>
-                            <input type="number" class="form-control" id="recipient-name">
+                            <label for="recipient-name" class="col-form-label">Số lượng<span class="text-danger">*</span></label>
+                            <input type="number" onchange="handleChangeQuantity(value)" min="1" class="form-control" id="quantity" name="quantity">
+                            <label id="errorQuantity" class="text-danger m-0"></label>
                         </div>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Size</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <label for="recipient-name" class="col-form-label">Tổng tiền</label>
+                            <input type="number" class="form-control" readonly id="totalPrice" name="totalPrice">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Size<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="size" name="size">
+                            <label id="errorSize" class="text-danger m-0"></label>
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Ghi chú</label>
-                            <textarea class="form-control" aria-label="With textarea" rows="6"></textarea>
+                            <textarea class="form-control" aria-label="With textarea" rows="6" name="note"></textarea>
                         </div>
                         <div class="d-none">
                             <input type="text" name="checkSubmitForm" value=true readonly>
@@ -200,14 +209,59 @@ $j = 0;
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
     <script>
+        function formatNumber(num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+        }
+        let price;
+        let error = true;
+
         function pickImage(value, value2, value3) {
+            price = value3;
             $("#name").text(value2);
-            $("#price").text(value3);
+            $("#price").text("Giá: " + formatNumber(value3));
             $("#imageModal").attr("src", value);
         }
+
+        function handleChangeQuantity(value) {
+            console.log(value * price);
+            if (value < 1) {
+                error = false;
+                $("#errorQuantity").show();
+                $("#errorQuantity").text("Số lượng phải lớn hơn 1")
+            }
+            $("#totalPrice").attr("value", value * price);
+        }
         $(function() {
+
+            function resetValidation() {
+                $("#errorQuantity").hide();
+                $("#errorName").hide();
+                $("#errorAddress").hide();
+                $("#errorPhoneNumber").hide();
+                $("#errorSize").hide();
+            }
+
+            function checkValidation(items, errorItems) {
+                for ($i = 0; $i < items.length; $i++) {
+                    if ($(items[$i]).val() == "") {
+                        error = false;
+                        $(errorItems[$i]).text("Không bỏ trống phần này")
+                        $(errorItems[$i]).show();
+                    }
+                }
+            }
+
             $("#submit").click(function() {
-                $("form").submit()
+                error = true;
+                $("#errorQuantity").hide();
+                resetValidation();
+                items = ["#nameInput", "#quantity", "#size", "#address", "#phoneNumber"];
+                errorItems = ["#errorName", "#errorQuantity", "#errorSize", "#errorAddress", "#errorPhoneNumber"];
+                handleChangeQuantity($("#quantity").val());
+                checkValidation(items, errorItems);
+                if (error) {
+                    $("form").submit();
+                }
             })
         })
     </script>

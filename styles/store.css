@@ -57,10 +57,12 @@ body > a:hover {
 .btn-submit-search:hover {
   text-decoration: none;
   transform: scale(1.05);
+  border: 3px solid #cb0000;
   color: #ffffff;
 }
 .btn-submit-search:active {
   transform: scale(0.85);
+  border: 3px solid #cb0000;
 }
 
 .btn-submit-search:focus-visible {
