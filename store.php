@@ -223,7 +223,6 @@ $j = 0;
         }
 
         function handleChangeQuantity(value) {
-            console.log(value * price);
             if (value < 1) {
                 error = false;
                 $("#errorQuantity").show();
