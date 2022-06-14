@@ -11,4 +11,13 @@ if (isset($_POST['checkSubmitForm'])) {
     $email = $_POST['email'];
     $address = $_POST['address'];
     $note = $_POST['note'];
+    $product_id = $_POST['product_id'];
+    $totalPrice = $_POST['totalPrice'];
+    $sqlInsert = "INSERT INTO `btl_sneaker`.`orders` (`name`, `phone_number`, `email`,`quantity`,`product_id`,`size`,`totalPrice`) VALUES ('$name','$phoneNumber','$email','$quantity','$product_id','$size','$totalPrice');";
+    $result = $conn->query($sqlInsert);
+    if ($result) {
+        return header("Location: ./index.php");
+    } else {
+        echo $result;
+    }
 }

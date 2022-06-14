@@ -1,11 +1,14 @@
 <?php
 require_once("../config/config.php");
 $sql = "SELECT * FROM products";
-
+$sqlOrder = "SELECT orders.*, products.name as nameProduct, products.image  FROM btl_sneaker.orders INNER JOIN btl_sneaker.products on orders.product_id = products.id;";
 $result = $conn->query($sql);
+$result2 = $conn->query($sqlOrder);
 
 $products = $result->fetch_all(MYSQLI_ASSOC);
+$orders = $result2->fetch_all(MYSQLI_ASSOC);
 $uuid = 0;
+$uuidOrder = 0;
 ?>
 
 <!DOCTYPE html>
@@ -111,28 +114,19 @@ $uuid = 0;
                                     <th scope="col">Số lượng</th>
                                     <th scope="col">Size</th>
                                     <th scope="col">Tổng tiền</th>
+                                    <th scope="col">Ảnh sản phẩm</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                                <?php foreach ($orders as $order) : $uuidOrder++   ?>
+                                    <tr>
+                                        <th scope="row"><?php echo $uuidOrder ?></th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                <?php endforeach ?>
                             </tbody>
                         </table>
                     </div>

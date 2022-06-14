@@ -78,7 +78,7 @@ $j = 0;
                     <h2><?php echo $productNewItem["name"] ?></h2>
                     <p><?php echo $productNewItem["description"] ?></p>
                     <p>Giá: <?php echo number_format($productNewItem["price"], 0, "", ",") ?></p>
-                    <button class="btn-submit-search show-modal" data-toggle="modal" onclick="pickImage(value,`<?php echo $productNewItem['name'] ?>`,`<?php echo $productNewItem['price'] ?>`)" data-target="#exampleModal" value="./asset/image/<?php echo $productNewItem["image"] ?>">Mua hàng</button>
+                    <button class="btn-submit-search show-modal" data-toggle="modal" onclick="pickImage(`<?php echo $productNewItem['image'] ?>`,`<?php echo $productNewItem['name'] ?>`,`<?php echo $productNewItem['price'] ?>`,`<?php echo $productNewItem['id'] ?>`)" data-target="#exampleModal">Mua hàng</button>
                 </div>
             </div>
         </section>
@@ -97,7 +97,7 @@ $j = 0;
                             <h5 class="card-title"><a class="text-decoration-none text-dark" href=""><?php echo $product["name"] ?></a></h5>
                             <p class="card-text"><?php echo $product["description"] ?></p>
                             <p class="card-text">Giá: <?php echo  number_format($product["price"], 0, "", ",")  ?></p>
-                            <button class="btn-submit-search show-modal" data-toggle="modal" onclick="pickImage(value,`<?php echo $product['name'] ?>`,` <?php echo $product['price'] ?>`)" value="./asset/image/<?php echo $product["image"] ?>" data-target="#exampleModal">Mua hàng</button>
+                            <button class="btn-submit-search show-modal" data-toggle="modal" onclick="pickImage(`<?php echo $product['image'] ?>`,`<?php echo $product['name'] ?>`,` <?php echo $product['price'] ?>`,`<?php echo $product['id'] ?>`)" data-target="#exampleModal">Mua hàng</button>
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@ $j = 0;
                             <h5 class="card-title"><a class="text-dark text-decoration-none text-black" href=""><?php echo $product["name"] ?></a></h5>
                             <p class="card-text"><?php echo $product["description"] ?></p>
                             <p class="card-text">Giá: <?php echo number_format($product["price"], 0, "", ",") ?></p>
-                            <button class="btn-submit-search show-modal" onclick="pickImage(value,`<?php echo $product['name'] ?>`,`<?php echo $product['price'] ?>`)" data-toggle="modal" value="./asset/image/<?php echo $product["image"] ?>" data-target="#exampleModal">Mua hàng</button>
+                            <button class="btn-submit-search show-modal" onclick="pickImage(`<?php echo $product['image'] ?>`,`<?php echo $product['name'] ?>`,`<?php echo $product['price'] ?>`,`<?php echo $product['id'] ?>`)" data-toggle="modal" data-target="#exampleModal">Mua hàng</button>
                         </div>
                     </div>
                 </div>
@@ -192,7 +192,8 @@ $j = 0;
                             <textarea class="form-control" aria-label="With textarea" rows="6" name="note"></textarea>
                         </div>
                         <div class="d-none">
-                            <input type="text" name="checkSubmitForm" value=true readonly>
+                            <input type="text" name="checkSubmitForm" id="checkSubmitForm" value=true readonly>
+                            <input type="number" name="product_id" id="product_id" value="" readonly>
                         </div>
                         <img id="imageModal" height="350" src="" class="card-img-top" alt="...">
                     </form>
@@ -215,11 +216,12 @@ $j = 0;
         let price;
         let error = true;
 
-        function pickImage(value, value2, value3) {
+        function pickImage(value, value2, value3, value4) {
             price = value3;
             $("#name").text(value2);
             $("#price").text("Giá: " + formatNumber(value3));
-            $("#imageModal").attr("src", value);
+            $("#imageModal").attr("src", "./asset/image/" + value);
+            $("#product_id").attr("value", value4);
         }
 
         function handleChangeQuantity(value) {
