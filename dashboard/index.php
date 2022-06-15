@@ -1,12 +1,20 @@
 <?php
 require_once("../config/config.php");
-$sql = "SELECT * FROM products";
-$sqlOrder = "SELECT orders.*, products.name as nameProduct, products.image  FROM btl_sneaker.orders INNER JOIN btl_sneaker.products on orders.product_id = products.id;";
-$result = $conn->query($sql);
+if (isset($_POST["search"])) {
+    $search = $_POST['search'];
+    $sql = "SELECT * FROM btl_sneaker.products WHERE `name` like '%$search%' order by id DESC ;";
+    $result = $conn->query($sql);
+    $products = $result->fetch_all(MYSQLI_ASSOC);
+} else {
+    $sql = "SELECT * FROM products  order by id DESC; ";
+    $result = $conn->query($sql);
+    $products = $result->fetch_all(MYSQLI_ASSOC);
+}
+$sqlOrder = "SELECT orders.*, products.name as nameProduct, products.image  FROM btl_sneaker.orders INNER JOIN btl_sneaker.products on orders.product_id = products.id  order by id DESC ;";
 $result2 = $conn->query($sqlOrder);
-
-$products = $result->fetch_all(MYSQLI_ASSOC);
 $orders = $result2->fetch_all(MYSQLI_ASSOC);
+
+
 $uuid = 0;
 $uuidOrder = 0;
 ?>
@@ -54,8 +62,8 @@ $uuidOrder = 0;
                 <h1 class="text-black header-title"><a href="../store.php" class="header-title">2022 Sneaker</a></h1>
 
             </div>
-            <form action="" method="POST">
-                <input class="input-search" type="text" placeholder="Nhập tên sản phẩm">
+            <form action="./index.php" method="POST">
+                <input class="input-search" type="text" name="search" placeholder="Nhập tên sản phẩm">
                 <button class="btn-submit-search">Tìm kiếm</button>
             </form>
         </div>
@@ -114,6 +122,7 @@ $uuidOrder = 0;
                                     <th scope="col">Số lượng</th>
                                     <th scope="col">Size</th>
                                     <th scope="col">Tổng tiền</th>
+                                    <th scope="col">Ghi chú</th>
                                     <th scope="col">Ảnh sản phẩm</th>
                                     <th scope="col"></th>
                                 </tr>
@@ -122,9 +131,18 @@ $uuidOrder = 0;
                                 <?php foreach ($orders as $order) : $uuidOrder++   ?>
                                     <tr>
                                         <th scope="row"><?php echo $uuidOrder ?></th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
+                                        <td><?php echo $order['name'] ?></td>
+                                        <td><?php echo $order['phone_number'] ?></td>
+                                        <td><?php echo $order['email'] ?></td>
+                                        <td><?php echo $order['nameProduct'] ?></td>
+                                        <td><?php echo $order['quantity'] ?></td>
+                                        <td><?php echo $order['size'] ?></td>
+                                        <td><?php echo $order['totalPrice'] ?></td>
+                                        <td><?php echo $order['note'] ?></td>
+                                        <td class="div-image-table"><img class="image-table" src="../asset/image/<?php echo $order['image'] ?>" alt=""></td>
+                                        <td>
+                                            <a href="./deleteOrder.php?id=<?php echo $order["id"] ?>" class="socialColor"><i class="fas fa-trash"></i></a>
+                                        </td>
                                     </tr>
                                 <?php endforeach ?>
                             </tbody>

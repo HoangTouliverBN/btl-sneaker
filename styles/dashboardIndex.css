@@ -24,7 +24,7 @@ body > a:hover {
 }
 .header-title {
   font-style: italic;
-  color: black !important;
+  color: black;
 }
 .header-title:hover {
   text-decoration: none !important;
@@ -124,4 +124,7 @@ ul > li {
 }
 .footer {
   background-color: #fe0000;
+}
+.action-button {
+  width: 100px;
 }

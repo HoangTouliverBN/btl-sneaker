@@ -74,8 +74,8 @@ if (isset($_POST['checkSubmitForm'])) {
                 <h1 class="text-black header-title"><a href="../store.php" class="header-title">2022 Sneaker</a></h1>
 
             </div>
-            <form action="" method="POST">
-                <input class="input-search" type="text" placeholder="Nhập tên sản phẩm">
+            <form action="./index.php" method="POST">
+                <input class="input-search" type="text" name="search" placeholder="Nhập tên sản phẩm">
                 <button class="btn-submit-search">Tìm kiếm</button>
             </form>
         </div>

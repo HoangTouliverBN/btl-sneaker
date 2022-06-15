@@ -13,10 +13,10 @@ if (isset($_POST['checkSubmitForm'])) {
     $note = $_POST['note'];
     $product_id = $_POST['product_id'];
     $totalPrice = $_POST['totalPrice'];
-    $sqlInsert = "INSERT INTO `btl_sneaker`.`orders` (`name`, `phone_number`, `email`,`quantity`,`product_id`,`size`,`totalPrice`) VALUES ('$name','$phoneNumber','$email','$quantity','$product_id','$size','$totalPrice');";
+    $sqlInsert = "INSERT INTO `btl_sneaker`.`orders` (`name`, `phone_number`, `email`,`quantity`,`product_id`,`size`,`totalPrice`,`note`) VALUES ('$name','$phoneNumber','$email','$quantity','$product_id','$size','$totalPrice','$note');";
     $result = $conn->query($sqlInsert);
     if ($result) {
-        return header("Location: ./index.php");
+        return header("Location: ./store.php");
     } else {
         echo $result;
     }

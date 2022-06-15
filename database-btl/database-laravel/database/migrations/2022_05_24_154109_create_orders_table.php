@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->integer("size");
             $table->integer("totalPrice");
             $table->string("image");
+            $table->text("note");
             $table->foreign("product_id")->references("id")->on("products")->onUpdate("cascade")->onDelete("cascade");
             $table->timestamps();
         });

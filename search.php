@@ -1,21 +1,14 @@
 <?php
-require_once("./config/config.php");
-$sql = "SELECT * FROM products order by id DESC";
+require_once './config/config.php';
+session_start();
 
-$sqlNewItem = "SELECT * FROM btl_sneaker.products order by id DESC;";
-$sqlNewItems = "SELECT * FROM btl_sneaker.products order by id DESC limit 4;";
-$result = $conn->query($sql);
-$result2 = $conn->query($sqlNewItem);
-$result3 = $conn->query($sqlNewItems);
-
-$productNewItem = $result2->fetch_assoc();
-$productNewItems = $result3->fetch_all(MYSQLI_ASSOC);
-$products = $result->fetch_all(MYSQLI_ASSOC);
-unset($productNewItems[0]);
-for ($i = 0; $i < 4; $i++) {
-    unset($products[$i]);
+if (isset($_POST['search'])) {
+    $search = $_POST['search'];
+    $sql = "SELECT * FROM btl_sneaker.products WHERE `name` like '%$search%' order by id DESC ;";
+    $result = $conn->query($sql);
+    $products = $result->fetch_all(MYSQLI_ASSOC);
+    $j = 0;
 }
-$j = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,54 +50,16 @@ $j = 0;
                         </a>
                     </li>
                 </ul>
-                <h1 class="text-black header-title"><a href="#" class="header-title">2022 Sneaker</a></h1>
+                <h1 class="text-black header-title"><a href="./store.php" class="header-title">2022 Sneaker</a></h1>
 
             </div>
-            <form method="POST" action="./search.php">
-                <input class="input-search" name="search" type="text" placeholder="Nhập tên sản phẩm">
-                <button class="btn-submit-search" type="submit">Tìm kiếm</button>
+            <form action="./search.php" method="POST">
+                <input class="input-search" type="text" name="search" placeholder="Nhập tên sản phẩm">
+                <button class="btn-submit-search">Tìm kiếm</button>
             </form>
         </div>
         <div class="divider-gray"></div>
     </header>
-
-    <div class="container-custome mt-4">
-        <section class="container">
-            <div class="row align-items-center">
-                <div class="col-5">
-                    <img class="image-section1" width="400" height="400" src="./asset/image/<?php echo $productNewItem["image"] ?>" alt="">
-                </div>
-                <div class="col-7">
-                    <h2><?php echo $productNewItem["name"] ?></h2>
-                    <p><?php echo $productNewItem["description"] ?></p>
-                    <p>Giá: <?php echo number_format($productNewItem["price"], 0, "", ",") ?></p>
-                    <button class="btn-submit-search show-modal" data-toggle="modal" onclick="pickImage(`<?php echo $productNewItem['image'] ?>`,`<?php echo $productNewItem['name'] ?>`,`<?php echo $productNewItem['price'] ?>`,`<?php echo $productNewItem['id'] ?>`)" data-target="#exampleModal">Mua hàng</button>
-                </div>
-            </div>
-        </section>
-        <div class="divider-gray mt-4"></div>
-    </div>
-
-    <div class="container-custome mt-4">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <?php foreach ($productNewItems as $product) : ?>
-                <div class="col">
-                    <div class="card">
-                        <a href="">
-                            <img height="280" src="./asset/image/<?php echo $product["image"] ?>" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title"><a class="text-decoration-none text-dark" href=""><?php echo $product["name"] ?></a></h5>
-                            <p class="card-text"><?php echo $product["description"] ?></p>
-                            <p class="card-text">Giá: <?php echo  number_format($product["price"], 0, "", ",")  ?></p>
-                            <button class="btn-submit-search show-modal" data-toggle="modal" onclick="pickImage(`<?php echo $product['image'] ?>`,`<?php echo $product['name'] ?>`,` <?php echo $product['price'] ?>`,`<?php echo $product['id'] ?>`)" data-target="#exampleModal">Mua hàng</button>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach ?>
-        </div>
-        <div class="divider-gray mt-4"></div>
-    </div>
 
     <div class="container-custome mt-4">
         <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2">
